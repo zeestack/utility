@@ -13,7 +13,7 @@ const obj = {
   role: "contributor",
   email: "gmail@gmail.com",
   title: "Strategy",
-  displayName: "Lucas",
+  displayName: "Somebody else",
   dateCreated: 1609450490052,
   uid: "lBY3mFtOJxMHqVX8aHjhxbE32323",
   owner: {
@@ -51,11 +51,11 @@ const obj = {
   ],
 };
 
-function findProp(values, obj, key, pops) {
+function findProp(values, obj, key, populateCallbk) {
   _.map(obj, (item) => {
     if (typeof item === "object" || Array.isArray(item)) {
       if (item[key]) {
-        item = pops(item);
+        item = populateCallbk(item);
       }
       return findProp(values, item, key, pops);
     } else {
@@ -68,17 +68,14 @@ function findProp(values, obj, key, pops) {
   });
 }
 
-function populate(obj) {
-  //obj.displayName = "Lucas Brown";
-  obj.age = "67";
-  obj.school = "TELUS";
-
-  return obj;
-}
-
 function findProps(obj, key) {
   const values = [];
-  findProp(values, [obj], key, populate);
+  findProp(values, [obj], key, (object) => {
+    object.displayName = "different name";
+    object.age = "67";
+    object.school = "Nellie Carlson School";
+    return object; //important
+  });
   return { values, obj };
 }
 
