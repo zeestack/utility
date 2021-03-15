@@ -13,7 +13,7 @@ const obj = {
   role: "contributor",
   email: "gmail@gmail.com",
   title: "Strategy",
-  displayName: "Zahid",
+  displayName: "Lucas",
   dateCreated: 1609450490052,
   uid: "lBY3mFtOJxMHqVX8aHjhxbE32323",
   owner: {
@@ -57,7 +57,7 @@ function findProp(values, obj, key, pops) {
       if (item[key]) {
         item = pops(item);
       }
-      return find_prop(values, item, key, pops);
+      return findProp(values, item, key, pops);
     } else {
       if (obj[key]) {
         if (values.findIndex((item) => item[key] === obj[key]) === -1) {
@@ -69,17 +69,19 @@ function findProp(values, obj, key, pops) {
 }
 
 function populate(obj) {
-  obj.displayName = "new display name";
-  obj.age = "new age information";
+  //obj.displayName = "Lucas Brown";
+  obj.age = "67";
+  obj.school = "TELUS";
+
   return obj;
 }
 
 function findProps(obj, key) {
   const values = [];
   findProp(values, [obj], key, populate);
-  return obj;
+  return { values, obj };
 }
 
-const result = findProps(obj, "uid");
+const result = findProps(obj, "displayName");
 
-console.log(result);
+console.log(result.values, result.obj);
